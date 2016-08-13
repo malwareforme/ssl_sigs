@@ -1,21 +1,5 @@
 ssl_sigs.py
 
-Create Suricata/Snort SSL Certificate Signatures
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -d DOMAIN, --domain DOMAIN
-                        Domain name
-  -m MESSAGE, --message MESSAGE
-                        Provide full signature message, e.g. ET TROJAN
-                        Malicious SSL Cert (Ursnif Injects)
-  -r REFERENCE, --reference REFERENCE
-                        Provide a md5 or url reference, or list of references
-                        separated by a |
-  -c CLASSTYPE, --classtype CLASSTYPE
-                        Provide signature classtype (default: trojan-activity)
-  -s SID, --sid SID     Provide starting sid number (default: 10000000)
-
 Create Suricata and Snort signatures to detect an inbound SSL Cert for a single domain.
 
 Mega thanks to Darien Huss and his work on a DNS signature script[1] which is where most of this code was ripped from. Another big thanks to Travis Green.
