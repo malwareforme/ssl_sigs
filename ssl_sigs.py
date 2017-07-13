@@ -15,7 +15,7 @@
 # classtype:trojan-activity; sid:100000001; rev:1;)
 #
 # Snort rule:
-# alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (msg:"ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)"; flow:established:from_server; content"|55 04 03|"; 
+# alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)"; flow:established:from_server; content"|55 04 03|"; 
 # content:"|11|something.bad.com"; distance:1; within:18; reference:md5,31d7c3e829be03400641f80b821ef728; reference:md5,0421008445828ceb46f496700a5fa65e; 
 # classtype:trojan-activity; sid:100000001; rev:1;)
 
@@ -52,7 +52,7 @@ def main():
 	domain_len = '|{:02x}|'.format(len(domain))
 	within = len(domain_len + domain) - 3
 
-	rule_stub_start_suri = 'alert tls $EXTERNAL_NET 443 -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
+	rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
 	rule_stub_len = 'content:"%s%s"; distance:1; ' % (domain_len,domain) 
 	rule_stub_within = 'within:%s; ' % within
 	rule_stub_end =  '%sclasstype:%s; sid:%s; rev:1;)' % (reference,classtype,sid)
