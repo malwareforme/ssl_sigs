@@ -10,12 +10,12 @@
 #
 # OUTPUT:
 # Suricata rule:
-# alert tls $EXTERNAL_NET 443 -> $HOME_NET any (msg:"ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)"; flow:established:from_server; content"|55 04 03|";
+# alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)"; flow:established:from_server; content"|55 04 03|";
 # content:"|11|something.bad.com"; distance:1; within:18; reference:md5,31d7c3e829be03400641f80b821ef728; reference:md5,0421008445828ceb46f496700a5fa65e;
 # classtype:trojan-activity; sid:100000001; rev:1;)
 #
 # Snort rule:
-# alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)"; flow:established:from_server; content"|55 04 03|"; 
+# alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (msg:"ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)"; flow:established:from_server; content"|55 04 03|"; 
 # content:"|11|something.bad.com"; distance:1; within:18; reference:md5,31d7c3e829be03400641f80b821ef728; reference:md5,0421008445828ceb46f496700a5fa65e; 
 # classtype:trojan-activity; sid:100000001; rev:1;)
 
