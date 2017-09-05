@@ -53,6 +53,8 @@ def main():
 	within = len(domain_len + domain) - 3
 
 	rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
+	rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; tls_cert_subject; ' % message
+	rule_stub_content_suri_current = 'content:"%s"; nocase; isdataat!1,relative; ' % domain
 	rule_stub_len = 'content:"%s%s"; distance:1; ' % (domain_len,domain) 
 	rule_stub_within = 'within:%s; ' % within
 	rule_stub_end =  '%sclasstype:%s; sid:%s; rev:1;)' % (reference,classtype,sid)
@@ -60,8 +62,10 @@ def main():
 
 	rule_stub_start_snort = 'alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
 
-	print '\r\n#Suricata rule:\r\n' + rule_stub_start_suri + rule_stub_len + rule_stub_within + rule_stub_end + '\r\n'
-	print '#Snort rule:\r\n' + rule_stub_start_snort + rule_stub_len + rule_stub_within + rule_stub_end + '\r\n'
+	print '#Suricata 3.2.+ rule:\r\n' + rule_stub_start_suri_current + rule_stub_content_suri_current + rule_stub_end + '\r\n'
+	print '\r\n#Suricata 1.3+ rule:\r\n' + rule_stub_start_suri + rule_stub_len + rule_stub_within + rule_stub_end + '\r\n'
+	print '\r\n#Snort 2.9+ rule:\r\n' + rule_stub_start_snort + rule_stub_len + rule_stub_within + rule_stub_end + '\r\n'
+
 
 
 if __name__ == '__main__':
