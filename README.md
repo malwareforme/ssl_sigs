@@ -3,6 +3,7 @@ ssl_sigs.py
 Create Suricata and Snort signatures to detect an inbound SSL Cert for a single domain.
 
 Mega thanks to Darien Huss and his work on a DNS signature script[1] which is where most of this code was ripped from. Another big thanks to Travis Green.
+
 [1]https://github.com/darienhuss/dns_sigs
 
 Example: $ python ssl_sigs.py -d something.bad.com -m "ET TROJAN Observed Malicious SSL Cert (Ursnif Injects)" -s 100000000 -r "31d7c3e829be03400641f80b821ef728|0421008445828ceb46f496700a5fa65e" 
