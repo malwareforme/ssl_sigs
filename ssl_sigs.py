@@ -54,7 +54,7 @@ def main():
 
 	rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
 	rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; tls_cert_subject; ' % message
-	rule_stub_content_suri_current = 'content:"%s"; fast_pattern; nocase; isdataat!1,relative; ' % domain
+	rule_stub_content_suri_current = 'content:"CN=%s"; fast_pattern; nocase; ' % domain
 	rule_stub_len = 'content:"%s%s"; distance:1; ' % (domain_len,domain) 
 	rule_stub_within = 'within:%s; fast_pattern; ' % within
 	rule_stub_end =  '%sclasstype:%s; sid:%s; rev:1;)' % (reference,classtype,sid)
