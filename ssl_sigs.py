@@ -52,15 +52,15 @@ def main():
 	domain_len = '|{:02x}|'.format(len(domain))
 	within = len(domain_len + domain) - 3
 
-	rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
-	rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,from_server; tls_cert_subject; ' % message
-	rule_stub_content_suri_current = 'content:"CN=%s"; fast_pattern; nocase; ' % domain
+	rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,to_client; content:"|55 04 03|"; ' % message
+	rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s"; flow:established,to_client; tls_cert_subject; ' % message
+	rule_stub_content_suri_current = 'content:"CN=%s"; nocase; isdataat:!1,relative; ' % domain
 	rule_stub_len = 'content:"%s%s"; distance:1; ' % (domain_len,domain) 
 	rule_stub_within = 'within:%s; fast_pattern; ' % within
 	rule_stub_end =  '%sclasstype:%s; sid:%s; rev:1;)' % (reference,classtype,sid)
 	sid += 1
 
-	rule_stub_start_snort = 'alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (msg:"%s"; flow:established,from_server; content:"|55 04 03|"; ' % message
+	rule_stub_start_snort = 'alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (msg:"%s"; flow:established,to_client; content:"|55 04 03|"; ' % message
 
 	print '#Suricata 3.2.+ rule:\r\n' + rule_stub_start_suri_current + rule_stub_content_suri_current + rule_stub_end + '\r\n'
 	print '\r\n#Suricata 1.3+ rule:\r\n' + rule_stub_start_suri + rule_stub_len + rule_stub_within + rule_stub_end + '\r\n'
