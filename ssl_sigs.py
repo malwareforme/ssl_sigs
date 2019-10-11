@@ -60,8 +60,8 @@ def main():
 
 	rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s %s Observed Malicious SSL Cert (%s)"; flow:established,to_client; content:"|55 04 03|"; ' % (rulesetname,category,message)
 	pro_rule_stub_start_suri = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (flow:established,to_client; content:"|55 04 03|"; '
-	rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (flow:established,to_client; tls_cert_subject; '
-	pro_rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s %s Observed Malicious SSL Cert (%s)"; flow:established,to_client; tls_cert_subject; ' % (rulesetname,category,message)
+	rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s %s Observed Malicious SSL Cert (%s)"; flow:established,to_client; tls_cert_subject; '  % (rulesetname,category,message)
+	pro_rule_stub_start_suri_current = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (flow:established,to_client; tls_cert_subject; '
 	rule_stub_start_suri5 = 'alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"%s %s Observed Malicious SSL Cert (%s)"; flow:established,to_client; tls.cert_subject; ' % (rulesetname,category,message)
 	rule_stub_start_snort = 'alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (msg:"%s %s Observed Malicious SSL Cert (%s)"; flow:established,to_client; content:"|55 04 03|"; ' % (rulesetname,category,message)
 	pro_rule_stub_start_snort = 'alert tcp $EXTERNAL_NET 443 -> $HOME_NET any (flow:established,to_client; content:"|55 04 03|"; '
@@ -81,7 +81,7 @@ def main():
 
 	if pro:
 		print '#Suricata 5.0 SSL Cert Rule:\r\n' + rule_stub_start_suri5 + rule_stub_content_suri5_current + rule_stub_end + '\r\n'
-		print '#Suricata 3.2+ SSL Cert Rule (pro ver):\r\n' + rule_stub_start_suri_current + pro_rule_stub_content_suri_current + '\r\n'
+		print '#Suricata 3.2+ SSL Cert Rule (pro ver):\r\n' + pro_rule_stub_start_suri_current + pro_rule_stub_content_suri_current + '\r\n'
 		print '#Suricata 1.3+ SSL Cert Rule (pro ver):\r\n' + pro_rule_stub_start_suri + rule_stub_len + pro_rule_stub_within + '\r\n'
 		print '#Snort 2.9+ SSL Cert Rule (pro ver):\r\n' + pro_rule_stub_start_snort + rule_stub_len + pro_rule_stub_within + '\r\n'
 		print 'Rule Description:\r\n' + 'This will alert on an SSL cert for a domain hosting %s.' % message
