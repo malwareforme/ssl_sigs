@@ -57,7 +57,7 @@ This will alert on an SSL cert for a domain hosting Ursnif CnC.
 alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ET MALWARE Observed Ursnif CnC Domain in TLS SNI"; flow:established,to_server; tls_sni; content:"something.bad.com"; bsize:17; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:domain-c2; sid:100000001; rev:1;)
 
 #Suricata 3.2+ TLS SNI Cert Rule:
-alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ET MALWARE Observed Ursnif CnC Domain in TLS SNI"; flow:established,to_server; tls_sni; content:"something.bad.com"; isdataat:!1,relative; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000001; rev:1;)
+alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ET MALWARE Observed Ursnif CnC Domain in TLS SNI"; flow:established,to_server; tls_sni; content:"something.bad.com"; depth:17; isdataat:!1,relative; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000001; rev:1;)
 
 #Suricata 1.3+ TLS SNI Cert Rule:
 alert tls $HOME_NET any -> $EXTERNAL_NET any (msg:"ET MALWARE Observed Ursnif CnC Domain in TLS SNI"; flow:established,to_server; content:"|00 00 11|something.bad.com|00|"; fast_pattern; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000001; rev:1;)
