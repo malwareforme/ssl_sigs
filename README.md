@@ -16,7 +16,7 @@ OUTPUT:
 alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE Observed Malicious SSL Cert (Ursnif CnC)"; flow:established,to_client; tls.cert_subject; content:"CN=something.bad.com"; nocase; endswith; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:domain-c2; sid:100000000; rev:1;)
 
 #Suricata 3.2.+ SSL Cert Rule:
-alert tls $EXTERNAL_NET any -> $HOME_NET any (flow:established,to_client; tls_cert_subject; content:"CN=something.bad.com"; nocase; isdataat:!1,relative; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000000; rev:1;)
+alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE Observed Malicious SSL Cert (Ursnif CnC)"; flow:established,to_client; tls_cert_subject; content:"CN=something.bad.com"; nocase; isdataat:!1,relative; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000000; rev:1;)
 
 #Suricata 1.3+ SSL Cert Rule:
 alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE Observed Malicious SSL Cert (Ursnif CnC)"; flow:established,to_client; content:"|55 04 03|"; content:"|11|something.bad.com"; distance:1; within:18; fast_pattern; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000000; rev:1;)
@@ -40,7 +40,7 @@ $ python ssl_sigs.py -d something.bad.com -m "Ursnif CnC" -s 100000000 -r 31d7c3
 alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE Observed Malicious SSL Cert (Ursnif CnC)"; flow:established,to_client; tls.cert_subject; content:"CN=something.bad.com"; nocase; endswith; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:domain-c2; sid:100000000; rev:1;)
 
 #Suricata 3.2.+ SSL Cert Rule:
-alert tls $EXTERNAL_NET any -> $HOME_NET any (flow:established,to_client; tls_cert_subject; content:"CN=something.bad.com"; nocase; isdataat:!1,relative; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000000; rev:1;)
+alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE Observed Malicious SSL Cert (Ursnif CnC)"; flow:established,to_client; tls_cert_subject; content:"CN=something.bad.com"; nocase; isdataat:!1,relative; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000000; rev:1;)
 
 #Suricata 1.3+ SSL Cert Rule:
 alert tls $EXTERNAL_NET any -> $HOME_NET any (msg:"ET MALWARE Observed Malicious SSL Cert (Ursnif CnC)"; flow:established,to_client; content:"|55 04 03|"; content:"|11|something.bad.com"; distance:1; within:18; fast_pattern; reference:md5,31d7c3e829be03400641f80b821ef728; classtype:trojan-activity; sid:100000000; rev:1;)
@@ -67,4 +67,5 @@ alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (msg:"ET MALWARE Observed Ursnif Cn
 
 Rule Description:
 This will alert on a Ursnif CnC domain observed in the TLS SNI.
+
 ```
