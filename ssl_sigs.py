@@ -102,7 +102,7 @@ def main():
 		pro_tls_sni_rule_stub_start_snort = 'alert tcp $HOME_NET any -> $EXTERNAL_NET 443 (flow:established,to_server; '
 		rule_stub_content_suri5 = 'tls.sni; content:"%s"; bsize:%s; ' % (domain,domain_len_bsize)
 		rule_stub_content_suri_4 = 'tls_sni; content:"%s"; depth:%s; isdataat:!1,relative; ' % (domain,domain_len_bsize)
-		pro_rule_stub_content_suri_4 = 'tls_sni; content:"%s"; depth:%s; isdataat:!1,relative; ' % (domain,domain_len_bsize)
+		pro_rule_stub_content_suri_4 = 'tls_sni; content:"%s"; depth:%s; isdataat:!1,relative;)' % (domain,domain_len_bsize)
 		rule_stub_content_snort_suri2 = 'content:"%s%s|00|"; fast_pattern; ' % (domain_len_tlssni,domain)
 		pro_rule_stub_content_snort_suri2 = 'content:"%s%s|00|"; fast_pattern;)' % (domain_len_tlssni,domain)
 		rule_stub_end_tlssni = '%sclasstype:%s; sid:%s; rev:1;)' % (reference,classtype,tls_sid)
